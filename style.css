@@ -1,0 +1,385 @@
+
+.js-hidden {
+  display: none !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'silkscreen';
+  background: black;
+  color: #222;
+}
+
+/* Opening screen */
+.opening-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background: #ffd100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.opening-screen.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.opening-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#open-button {
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 999px;
+  background: #1a73e8;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+#open-button:hover {
+  transform: scale(1.55);
+}
+
+/* Flip Card Container (Poker Card Style) */
+.card-flip-container {
+  perspective: 1200px;
+  width: 100%;
+  max-width: 450px;
+  aspect-ratio: 5 / 7;
+  margin: 0 auto;
+  cursor: pointer;
+  position: relative;
+
+  background-image: url("asset/background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform-style: preserve-3d;
+  border: 4px solid #f9c74f;
+  border-radius: 16px;
+  box-shadow: 0 0 12px #00000099;
+  background-image: url("asset/background.png");}
+
+.card-flip-container.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.card-front {
+  background: #fff8e7;
+  border: 2px solid #444;
+  padding: 1.5rem;
+}
+
+.card-back {
+  background: #eef6fb;
+  border: 2px solid #444;
+  padding: 1.5rem;
+  transform: rotateY(180deg);
+}
+
+.card-flip-container:hover .card-inner {
+  box-shadow: 0 0 25px #f9c74f, 0 0 40px #1a73e8;
+  border-radius: 1rem;
+}
+
+.flip-hint {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #f9c74f;
+  font-style: italic;
+  animation: blinkHint 1.2s ease-in-out infinite alternate;
+  text-shadow: 0 0 5px #f9c74f;
+}
+
+@keyframes blinkHint {
+  50% {
+      opacity: 0.5;
+  }
+}
+
+.profile-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 7rem;
+  transition: opacity 0.5s ease;
+}
+
+.profile-wrapper.visible {
+  opacity: 1;
+}
+.profile-wrapper.hidden {
+  opacity: 0;
+}
+
+.profile-title-bar {
+  color: yellow;
+  font-family: 'silkscreen', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.75rem;
+  text-align: center;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px #f9c74f;
+}
+
+.wave-text span {
+  display: inline-block;
+  font-size: 1rem;
+  color: #f9c74f;
+  font-family: 'silkscreen', sans-serif;
+  animation: bounce 1.5s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.07s);
+  text-shadow: 0 0 8px #f9c74f;
+}
+
+@keyframes bounce {
+  0%, 100% {
+      transform: translateY(0);
+  }
+  30% {
+      transform: translateY(-10px);
+  }
+  60% {
+      transform: translateY(-6px);
+  }
+  80% {
+      transform: translateY(-4px);
+  }
+}
+
+.avatar-card-grid {
+  max-width: 960px;
+  width: 100%;
+  display: block;
+  padding: 1rem;
+  transition: opacity 0.5s ease;
+}
+
+.card-left h2 {
+  background: #333;
+  color: #fff;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.card-avatar {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 1rem auto;
+  border-radius: 0.5rem;
+  border: 3px solid #aaa;
+}
+
+.skills .skill-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.6rem 0;
+}
+
+.dots span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 5px;
+  border-radius: 50%;
+  background: #ddd;
+}
+.dots .filled {
+  background: #1a73e8;
+}
+
+.status {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.mini-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.stats div {
+  margin: 4px 0;
+}
+
+.hp-bar {
+  background: #ddd;
+  height: 10px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.hp-bar span {
+  display: block;
+  height: 100%;
+  background: #4caf50;
+}
+
+.tab-section {
+  position: relative;
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.tabs button {
+  font-family: 'silkscreen';
+  background: #222;
+  color: white;
+  padding: 0.4rem 1.2rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s, transform 0.2s;
+}
+
+.tabs button.active {
+  font-family: 'silkscreen';
+  background: #7ec8e3;
+  color: #222;
+  transform: scale(1.05);
+}
+
+.tab-content {
+  margin-top: 1rem;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 2px solid #ccc;
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+.tab-content.active-tab {
+  transform: scale(1.02);
+  border-color: #444;
+}
+.tab-content[data-color="description"] {
+  background: #eef6fb;
+}
+.tab-content[data-color="skill"] {
+  background: #f9f0ff;
+}
+.tab-content[data-color="object"] {
+  background: #fff8e6;
+}
+.tab-panel {
+  display: none;
+}
+.tab-panel.active {
+  display: block;
+}
+
+/* Contact/Project Cards */
+.card-nav {
+  width: 400px;
+  height: auto;
+  aspect-ratio: 7 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 8px #00000033;
+  background: linear-gradient(135deg, #eeeeee, #ffffff);
+  border: 2px solid #ccc;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.75;
+  transition: transform 0.2s ease;
+}
+.card-nav:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #1a73e8aa;
+}
+.card-face-label {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #1a73e8;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Swiper adjustments */
+.swiper-slide {
+  width: 400px !important; /* Make this match your card width */
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.swiper {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  padding: 4rem 0;
+}
+
+@media (max-width: 480px) {
+  .swiper-slide {
+      width: 400px !important;
+  }
+  .card-flip-container,
+  .card-nav {
+      max-width: 320px;
+  }
+}
+
+
+
+/* Style for Project Card */
+.card-nav.project-card {
+  background: linear-gradient(135deg, #cce5ff, #e6f0ff);
+  border: 2px solid #1a73e8;
+}
+
+/* Style for Contact Card */
+.card-nav.contact-card {
+  background: linear-gradient(135deg, #ffe6e6, #fff0f0);
+  border: 2px solid #e81a1a;
+}
+
