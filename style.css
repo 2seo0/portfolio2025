@@ -11,8 +11,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'silkscreen';
-  background: black;
-  color: #222;
+  background-color: rgb(25, 37, 99);
 }
 
 /* Opening screen */
@@ -22,7 +21,7 @@ body {
   left: 0;
   height: 100vh;
   width: 100%;
-  background: #ffd100;
+  background-image: url("asset/background.png");
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,6 +29,13 @@ body {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.5s ease;
+}
+
+.opening-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .opening-screen.visible {
@@ -43,17 +49,81 @@ body {
 }
 
 #open-button {
-  font-size: 1.1rem;
+  position: absolute;
+  bottom: 20%;
+  font-size: 1rem;
   padding: 1rem 2rem;
   border: none;
   border-radius: 999px;
-  background: #1a73e8;
-  color: #fff;
+  background: white;
+  color: navy;
   cursor: pointer;
   transition: transform 0.2s ease;
+  font-family: 'silkscreen';
 }
+
 #open-button:hover {
   transform: scale(1.55);
+}
+
+.loading-bar-container {
+  width: 100%;
+  max-width: 400px;
+  height: 16px;
+  background: #ffffff44;
+  border: 2px solid gray;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.loading-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: rgb(255, 225, 0);
+  border-radius: 999px;
+  animation: loadingProgress 3s ease forwards;
+}
+
+@keyframes loadingProgress {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.game-ui-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: rgb(209, 209, 209);
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-family: 'silkscreen';
+  font-size: 1.7rem;
+  z-index: 100;
+  border-bottom: 4px solid #363636;
+  box-shadow: 0 4px 0 #161616;
+}
+
+.game-ui-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ui-icon {
+  width: 24px;
+  height: 24px;
+  image-rendering: pixelated;
+}
+
+
+#flip-hint, #unlocked-text {
+  transition: opacity 0.3s ease;
 }
 
 /* Flip Card Container (Poker Card Style) */
@@ -67,6 +137,35 @@ body {
   position: relative;
 }
 
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 5;
+  padding: 0 4rem; /* ⬅️ Push buttons inward */
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  pointer-events: auto; /* enable clicks */
+  transition: transform 0.2s ease;
+}
+
+.nav-btn img {
+  width: 130px;
+  height: 130px;
+}
+
+.nav-btn:hover {
+  transform: scale(1.2);
+}
 
 .card-inner {
   position: relative;
@@ -77,7 +176,7 @@ body {
   border: 4px solid #f9c74f;
   border-radius: 16px;
   box-shadow: 0 0 12px #00000099;
-  background-image: url("asset/background.png");}
+  background-image: url("asset/background2.png");}
 
 .card-flip-container.flipped .card-inner {
   transform: rotateY(180deg);
@@ -334,13 +433,11 @@ body {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 0 8px #00000033;
-  background: linear-gradient(135deg, #eeeeee, #ffffff);
   border: 2px solid #ccc;
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.75;
   transition: transform 0.2s ease;
 }
 .card-nav:hover {
@@ -365,7 +462,6 @@ body {
   align-items: center;
 }
 
-
 .swiper {
   width: 100%;
   max-width: 1000px;
@@ -384,16 +480,138 @@ body {
 }
 
 
-
 /* Style for Project Card */
 .card-nav.project-card {
-  background: linear-gradient(135deg, #cce5ff, #e6f0ff);
-  border: 2px solid #1a73e8;
+  position: relative; /* Needed for absolute positioning inside */
+  background-image: url("asset/canvally-profile.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 4px solid #1a73e8;
+  border-radius: 16px;
+  box-shadow: 0 0 12px #1a73e8aa;
+  overflow: hidden;
+}
+
+.project-button {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  color: #c800ff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-family: 'silkscreen';
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  box-shadow: 0 0 10px #ff56f4aa;
+  transition: transform 0.2s, background 0.3s;
+  z-index: 2;
+  opacity: 90%;
+}
+
+.project-button:hover {
+  background: #efd3ff;
+  transform: translateX(-50%) scale(1.05);
+}
+
+/* Change background image only when the button is hovered */
+.card-nav.project-card.blush {
+  background-image: url("asset/canvally-profile-blush.png");
 }
 
 /* Style for Contact Card */
 .card-nav.contact-card {
-  background: linear-gradient(135deg, #ffe6e6, #fff0f0);
-  border: 2px solid #e81a1a;
+  background: #f9e1b0;
+  border: 4px solid #c48b46; /* warm brown edge */
+  display: flex;
+  padding: 1.5rem;
+  box-shadow:
+    inset 0 4px 0 #fff4d2,
+    0 6px 0 #c48b46,
+    0 8px 12px rgba(0,0,0,0.1);
 }
 
+
+
+.quest-style-card {
+  background: #f9e1b0;
+  border: 4px solid #c48b46;
+  border-radius: 16px;
+  box-shadow:
+    inset 0 4px 0 #fff4d2,
+    0 6px 0 #c48b46,
+    0 8px 12px rgba(0,0,0,0.1);
+  font-family: 'silkscreen', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.quest-header {
+  background: #d9a85b;
+  padding: 0.75rem 1rem;
+  font-size: 1.6rem;
+  color: #fff;
+  border-radius: 10px 10px 0 0;
+  box-shadow: inset 0 -3px 0 #b57c39;
+  text-align: center;
+}
+
+.quest-body {
+  background: #fff6e0;
+  border-radius: 0 0 12px 12px;
+  padding: 1.2rem;
+  flex: 1;
+}
+
+.quest-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.quest-title {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #8c5a1f;
+}
+
+.quest-progress {
+  font-size: 1rem;
+  color: #5e3811;
+}
+
+.quest-description {
+  font-size: 1rem;
+  color: #5e3811;
+  margin-bottom: 1.5rem;
+}
+
+.quest-button {
+  background: #1a73e8;
+  color: #fff;
+  font-family: 'silkscreen';
+  font-size: 1rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 4px 0 #004ec2;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.quest-button:hover {
+  background: #004ec2;
+  transform: scale(1.05);
+}
+
+.quest-button:hover {
+  background: #004ec2;
+  transform: scale(1.05);
+}

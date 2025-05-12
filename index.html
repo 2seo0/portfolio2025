@@ -13,17 +13,39 @@
 </head>
 
 <body>
-  <!-- Opening Screen -->
-  <div id="opening-screen" class="opening-screen js-hidden">
-    <button id="open-button">CLICK TO OPEN YOUR DESIGNER</button>
+  <!-- Background UI -->
+  <div class="game-ui-bar">
+    <div class="game-ui-item">
+      <img src="asset/coin.png" alt="Coins" class="ui-icon" />
+      <span id="coin-count">× 99</span>
+    </div>
+    <div class="game-ui-item">
+      <img src="asset/score.png" alt="Score" class="ui-icon" />
+      <span id="score">000120</span>
+    </div>
+    <div class="game-ui-item">
+      <img src="asset/clock.png" alt="Clock" class="ui-icon" />
+      <span id="clock-time">--:--</span>
+    </div>
   </div>
 
+  <!-- Opening Screen -->
+  <div id="opening-screen" class="opening-screen js-hidden">
+    <div class="opening-inner">
+      <div class="loading-bar-container">
+        <div class="loading-bar-fill"></div>
+      </div>
+      <div id="loading-text" style="font-family:'silkscreen'; color:white; margin-top:1rem;">Loading...      
+      </div>
+      <button id="open-button">CLICK TO OPEN YOUR DESIGNER</button>
+    </div>
+  </div>
+  
   <!-- Profile Screen -->
   <main id="profile-screen" class="profile-wrapper hidden">
-    <div class="profile-title-bar wave-text">
+    <div class="profile-title-bar wave-text" id="unlocked-text">
       <span style="--i:0">D</span><span style="--i:1">E</span><span style="--i:2">S</span><span style="--i:3">I</span><span style="--i:4">G</span><span style="--i:5">N</span><span style="--i:6">E</span><span style="--i:7">R</span>&nbsp;<span style="--i:8">U</span><span style="--i:9">N</span><span style="--i:10">L</span><span style="--i:11">O</span><span style="--i:12">C</span><span style="--i:13">K</span><span style="--i:14">E</span><span style="--i:15">D</span>
     </div>
-
     <!-- Swiper Carousel -->
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
@@ -116,47 +138,47 @@
 
         <!-- Project Card -->
         <div class="swiper-slide card-nav project-card">
-          <a href="projects.html" class="card-face-label">Projects</a>
+          <a href="projects.html" class="project-button">CANVALLY PROJECT</a>
         </div>
-
+        
         <!-- Contact Card -->
-        <div class="swiper-slide card-nav contact-card">
-          <a href="contact.html" class="card-face-label">Contact</a>
+        <div class="swiper-slide card-nav contact-card quest-style-card">
+          <div class="quest-header">📬 New Quest</div>
+          <div class="quest-body">
+            <div class="quest-title-row">
+              <h3 class="quest-title">Send a Message</h3>
+              <span class="quest-progress">0/1</span>
+            </div>
+            <p class="quest-description">
+              Reach out to Isabelle the Designer! She awaits your signal for collaboration or questions. 💌
+            </p>
+            <a href="mailto:seoyounglee17@gmail.com" class="quest-button">Accept Quest</a>
+          </div>
         </div>
-
-
       </div>
     </div>
-    <p class="flip-hint">Click to flip</p>
 
+
+    <p class="flip-hint" id="flip-hint">Click to flip</p>
+
+    <!-- Swipe Buttons -->
+    <div class="carousel-nav">
+      <button id="prev-btn" class="nav-btn">
+        <img src="asset/left-button.png" alt="Previous">
+      </button>
+      <button id="next-btn" class="nav-btn">
+        <img src="asset/right-button.png" alt="Next">
+      </button>
+    </div>
   </main>
 
   <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
 
-  <!-- Swiper Init -->
-  <script>
-    var swiper = new Swiper(".mySwiper", {
-      effect: "coverflow",
-      grabCursor: true,
-      centeredSlides: true,
-      slidesPerView: "auto",
-      initialSlide: 0,
-      loop: true,
-      slideToClickedSlide: true, // enables click-to-center
-      resistanceRatio: 0.6, // optional: makes dragging slightly tighter
-      coverflowEffect: {
-        rotate: 0,
-        stretch: 0,
-        depth: 300,
-        modifier: 1,
-        slideShadows: false,
-      }
-    });
-    
-    
-  </script>
+  <audio id="intro-music" src="asset/intro-music.mp3"></audio>
+  <audio id="background-music" src="asset/background-music.mp3" loop></audio>
+  
 
 
 </body>
