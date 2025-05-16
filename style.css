@@ -615,3 +615,156 @@ body {
   background: #004ec2;
   transform: scale(1.05);
 }
+
+
+@media (max-width: 768px) {
+  body {
+    font-size: 3.5vw;
+  }
+
+  .game-ui-bar {
+    height: auto;
+    flex-direction: column;
+    font-size: 4.5vw;
+    padding: 0.5rem;
+  }
+
+  .ui-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .card-flip-container {
+    max-width: 90vw;
+    aspect-ratio: 5 / 7;
+  }
+
+  .carousel-nav {
+    padding: 0 1rem;
+  }
+
+  .nav-btn img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .flip-hint {
+    font-size: 0.9rem;
+  }
+
+  .project-button {
+    font-size: 4vw;
+    padding: 0.6rem 1rem;
+  }
+
+  .avatar-card-grid {
+    padding: 1rem 1vw;
+  }
+
+  .card-left h2 {
+    font-size: 5vw;
+  }
+
+  .card-avatar {
+    max-width: 180px;
+  }
+
+  .skill-box {
+    padding: 0.8rem;
+    font-size: 3.5vw;
+  }
+
+  .skills .skill-row {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .quest-style-card {
+    padding: 1rem;
+    font-size: 4vw;
+  }
+
+  .quest-header {
+    font-size: 5vw;
+  }
+
+  .quest-title {
+    font-size: 4.5vw;
+  }
+
+  .quest-button {
+    font-size: 4vw;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .tabs button {
+    font-size: 4vw;
+    padding: 0.4rem 1rem;
+  }
+
+  .tab-content {
+    padding: 1rem;
+    font-size: 3.5vw;
+  }
+
+  .card-nav {
+    width: 90vw;
+    aspect-ratio: unset;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .swiper-slide {
+    width: 90vw !important;
+  }
+
+  .swiper {
+    padding: 2rem 0;
+  }
+
+  .wave-text span {
+    font-size: 4.5vw;
+  }
+
+  .profile-wrapper {
+    padding: 3rem 1rem;
+  }
+
+  .loading-bar-container {
+    max-width: 80vw;
+  }
+
+  #open-button {
+    font-size: 4vw;
+    padding: 1rem 2rem;
+  }
+
+  .profile-title-bar {
+    font-size: 4vw;
+  }
+
+  .card-face-label {
+    font-size: 3.5vw;
+  }
+}
+
+@media (max-width: 400px) {
+  .nav-btn img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .card-avatar {
+    max-width: 140px;
+  }
+
+  .flip-hint {
+    font-size: 0.8rem;
+  }
+}
