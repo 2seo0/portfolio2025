@@ -107,6 +107,7 @@ body {
   z-index: 100;
   border-bottom: 4px solid #363636;
   box-shadow: 0 4px 0 #161616;
+  pointer-events: none; /* Optional: avoid blocking interactions */
 }
 
 .game-ui-item {
@@ -135,6 +136,12 @@ body {
   margin: 0 auto;
   cursor: pointer;
   position: relative;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.swiper-slide-active .card-flip-container {
+  opacity: 1;
 }
 
 .carousel-nav {
@@ -147,14 +154,14 @@ body {
   transform: translateY(-50%);
   pointer-events: none;
   z-index: 5;
-  padding: 0 4rem; /* ⬅️ Push buttons inward */
+  padding: 0 4rem; /* original padding for desktop */
 }
 
 .nav-btn {
   background: none;
   border: none;
   cursor: pointer;
-  pointer-events: auto; /* enable clicks */
+  pointer-events: auto;
   transition: transform 0.2s ease;
 }
 
@@ -175,7 +182,6 @@ body {
   transform-style: preserve-3d;
   border: 4px solid #f9c74f;
   border-radius: 16px;
-  box-shadow: 0 0 12px #00000099;
   background-image: url("asset/background2.png");}
 
 .card-flip-container.flipped .card-inner {
@@ -236,9 +242,11 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 7rem;
+  padding: 2rem 1rem; /* was 7rem */
+  padding-top: 6rem; /* Increased from 3rem or whatever is current */
   transition: opacity 0.5s ease;
 }
+
 
 .profile-wrapper.visible {
   opacity: 1;
@@ -455,11 +463,26 @@ body {
 
 /* Swiper adjustments */
 .swiper-slide {
-  width: 400px !important; /* Make this match your card width */
-  height: auto;
+  width: 90vw;
+  max-width: 420px;
+  height: auto !important;
   display: flex;
   justify-content: center;
   align-items: center;
+  pointer-events: none; /* disable all slides by default */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0.5;
+  filter: grayscale(10%);
+}
+
+.swiper-slide.swiper-slide-active {
+  pointer-events: auto;
+  opacity: 1;
+  filter: none;
+  box-shadow: 0 0 15px #1a73e8aa, 0 0 30px #f9c74f99;
+  border-radius: 16px;
+  z-index: 2;
+  transform: scale(1.05);
 }
 
 .swiper {
@@ -493,11 +516,20 @@ body {
   overflow: hidden;
 }
 
+@keyframes floatBounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-6px);
+  }
+}
+
 .project-button {
   position: absolute;
   top: 8%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(0);
   background: white;
   color: #c800ff;
   padding: 0.75rem 1.5rem;
@@ -508,14 +540,17 @@ body {
   text-decoration: none;
   font-size: 1rem;
   box-shadow: 0 0 10px #ff56f4aa;
-  transition: transform 0.2s, background 0.3s;
+  transition: background 0.3s;
   z-index: 2;
-  opacity: 90%;
+  opacity: 80%;
+
+  /* Floating animation */
+  animation: floatBounce 2.5s ease-in-out infinite;
 }
 
 .project-button:hover {
   background: #efd3ff;
-  transform: translateX(-50%) scale(1.05);
+  transform: translateX(-50%) translateY(-3px) scale(1.05);
 }
 
 /* Change background image only when the button is hovered */
@@ -534,8 +569,6 @@ body {
     0 6px 0 #c48b46,
     0 8px 12px rgba(0,0,0,0.1);
 }
-
-
 
 .quest-style-card {
   background: #f9e1b0;
@@ -616,14 +649,12 @@ body {
   transform: scale(1.05);
 }
 
-
 @media (max-width: 768px) {
   body {
     font-size: 3.5vw;
   }
 
   .game-ui-bar {
-    flex-direction: column;
     font-size: 4.5vw;
     padding: 0.5rem;
     height: auto;
@@ -645,32 +676,70 @@ body {
     justify-content: center;
   }
 
-  .card-nav,
-  .card-flip-container {
+  .carousel-nav {
+    top: 48%;
+    padding: 0 1rem;
+  }
+
+  .nav-btn img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .nav-btn:hover {
+    transform: scale(1.1);
+  }
+
+  .card-flip-container,
+  .card-nav {
     width: 90vw;
-    max-width: 90vw;
+    max-width: 300px;
     height: auto;
     aspect-ratio: 5 / 7;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
   }
 
   .card-inner {
     height: 100%;
+    max-height: 100%;
   }
 
-  .project-button {
+  .card-face {
+    font-size: 2.9vw;
+    line-height: 1.3;
+  }
+
+  .card-left h2 {
     font-size: 4vw;
-    padding: 0.6rem 1rem;
+    padding: 0.2rem;
   }
 
-  .profile-wrapper {
-    padding: 3rem 1rem;
+  .card-avatar {
+    max-width: 160px;
   }
 
-  .wave-text span {
-    font-size: 4.5vw;
+  .mini-avatar {
+    max-width: 40px;
+    height: auto;
+  }
+
+  .skill-box {
+    font-size: 2.7vw;
+    padding: 0.5rem;
+  }
+
+  .skills .skill-row {
+    margin: 0.4rem 0;
+  }
+
+  .tab-content {
+    font-size: 2.5vw;
+    padding: 0.5rem;
+  }
+
+  .tab-panel p,
+  .quest-description {
+    font-size: 2vw;
+    line-height: 1.4;
   }
 
   .tabs {
@@ -680,29 +749,38 @@ body {
   }
 
   .tabs button {
-    font-size: 4vw;
-    padding: 0.4rem 1rem;
+    font-size: 0.1w;
+    padding: 0.3rem 0.8rem;
   }
 
-  .tab-content {
-    font-size: 3.5vw;
+  .wave-text span {
+    font-size: 3w;
+    margin-top: 15vw;
   }
 
   .flip-hint {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
-  .card-left h2 {
-    font-size: 5vw;
+  .profile-wrapper {
+    padding: 2rem 1rem;
   }
 
-  .card-avatar {
-    max-width: 180px;
+  .status {
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 
-  .skill-box {
-    padding: 0.8rem;
-    font-size: 3.5vw;
+  .stats div {
+    margin: 2px 0;
+  }
+
+  .hp-bar {
+    height: 8px;
+  }
+
+  .tab-section {
+    margin-top: 0.5rem;
   }
 
   .quest-style-card {
@@ -719,6 +797,9 @@ body {
     padding: 0.6rem 1.2rem;
   }
 
+  .quest-description {
+    font-size: 3vw;
+  }
   .loading-bar-container {
     max-width: 90vw;
   }

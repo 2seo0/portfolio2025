@@ -4,86 +4,89 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Isabelle - Creative Avatar</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 </head>
 
 <body>
-  <!-- Background UI -->
+  <!-- 🕹 Game UI Bar -->
   <div class="game-ui-bar">
     <div class="game-ui-item">
-      <img src="asset/coin.png" alt="Coins" class="ui-icon" />
+      <img src="asset/coin.png" alt="Coin Icon" class="ui-icon" />
       <span id="coin-count">× 99</span>
     </div>
     <div class="game-ui-item">
-      <img src="asset/score.png" alt="Score" class="ui-icon" />
+      <img src="asset/score.png" alt="Score Icon" class="ui-icon" />
       <span id="score">000120</span>
     </div>
     <div class="game-ui-item">
-      <img src="asset/clock.png" alt="Clock" class="ui-icon" />
+      <img src="asset/clock.png" alt="Clock Icon" class="ui-icon" />
       <span id="clock-time">--:--</span>
     </div>
   </div>
 
-  <!-- Opening Screen -->
+  <!-- 🚪 Opening Screen -->
   <div id="opening-screen" class="opening-screen js-hidden">
     <div class="opening-inner">
       <div class="loading-bar-container">
         <div class="loading-bar-fill"></div>
       </div>
-      <div id="loading-text" style="font-family:'silkscreen'; color:white; margin-top:1rem;">Loading...      
-      </div>
+      <div id="loading-text" class="loading-text">Loading...</div>
       <button id="open-button">CLICK TO OPEN YOUR DESIGNER</button>
     </div>
   </div>
-  
-  <!-- Profile Screen -->
+
+  <!-- 🧑‍🎨 Profile Screen -->
   <main id="profile-screen" class="profile-wrapper hidden">
+    <!-- 🔓 Title -->
     <div class="profile-title-bar wave-text" id="unlocked-text">
-      <span style="--i:0">D</span><span style="--i:1">E</span><span style="--i:2">S</span><span style="--i:3">I</span><span style="--i:4">G</span><span style="--i:5">N</span><span style="--i:6">E</span><span style="--i:7">R</span>&nbsp;<span style="--i:8">U</span><span style="--i:9">N</span><span style="--i:10">L</span><span style="--i:11">O</span><span style="--i:12">C</span><span style="--i:13">K</span><span style="--i:14">E</span><span style="--i:15">D</span>
+      <span style="--i:0">D</span><span style="--i:1">E</span><span style="--i:2">S</span><span style="--i:3">I</span><span style="--i:4">G</span><span style="--i:5">N</span><span style="--i:6">E</span><span style="--i:7">R</span>
+      &nbsp;<span style="--i:8">U</span><span style="--i:9">N</span><span style="--i:10">L</span><span style="--i:11">O</span><span style="--i:12">C</span><span style="--i:13">K</span><span style="--i:14">E</span><span style="--i:15">D</span>
     </div>
-    <!-- Swiper Carousel -->
+
+    <!-- 🎠 Swiper Carousel -->
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
 
-        <!-- Flippable Main Card -->
+        <!-- 🎴 Main Flippable Card -->
         <div class="swiper-slide">
           <div class="card-flip-container" id="main-card">
             <div class="card-inner">
-              <div class="card-bg"></div>
 
-              <!-- FRONT -->
+              <!-- Front -->
               <div class="card-face card-front">
                 <div class="card-left">
                   <h2>ISABELLE LEE</h2>
-                  <img src="asset/avatar.png" alt="Avatar" class="card-avatar" />
+                  <img src="asset/avatar.png" alt="Portrait of Isabelle" class="card-avatar" />
                   <div class="skill-box">
                     <div class="skills">
                       <div class="skill-row">
                         <span>Communication</span>
-                        <div class="dots tooltip-container" data-tooltip="5/5">
+                        <div class="dots" data-tooltip="5/5">
                           <span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span>
                         </div>
                       </div>
                       <div class="skill-row">
                         <span>Creativity</span>
-                        <div class="dots tooltip-container" data-tooltip="5/5">
+                        <div class="dots" data-tooltip="5/5">
                           <span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span>
                         </div>
                       </div>
                       <div class="skill-row">
                         <span>Collaboration</span>
-                        <div class="dots tooltip-container" data-tooltip="5/5">
+                        <div class="dots" data-tooltip="5/5">
                           <span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span>
                         </div>
                       </div>
                       <div class="skill-row">
                         <span>Hesitance</span>
-                        <div class="dots tooltip-container" data-tooltip="5/5">
+                        <div class="dots" data-tooltip="1/5">
                           <span class="filled"></span><span class="unfilled"></span><span class="unfilled"></span><span class="unfilled"></span><span class="unfilled"></span>
                         </div>
                       </div>
@@ -92,11 +95,11 @@
                 </div>
               </div>
 
-              <!-- BACK -->
+              <!-- Back -->
               <div class="card-face card-back">
                 <div class="card-right">
                   <div class="status">
-                    <img src="asset/avatar_back.png" alt="Mini Avatar" class="mini-avatar" />
+                    <img src="asset/avatar_back.png" alt="Mini avatar" class="mini-avatar" />
                     <div class="stats">
                       <div><strong>LVL</strong> 21</div>
                       <div><strong>EXP</strong> 190603</div>
@@ -105,6 +108,7 @@
                     </div>
                   </div>
 
+                  <!-- Tabs -->
                   <div class="tab-section">
                     <div class="tabs">
                       <button class="active" data-color="description">Description</button>
@@ -116,32 +120,37 @@
                       <div class="tab-panel active" data-tab="description">
                         <p>I’m Isabelle – a cheerful designer who loves learning and turning ideas into fun, meaningful designs. I’m open to anything and everything, always curious, and excited to grow through every new challenge.</p>
                       </div>
-                      <div class="tab-panel" data-tab="skill">                       
-                          <div><p><strong>TOOLS</strong> <br> Figma<br> Illustrator / Photoshop<br> Canva<br> HTML / CSS<br></div><div><strong>TEAM TRAITS</strong><br>Problem solving<br> Open communicator<br></p></div>
+                      <div class="tab-panel" data-tab="skill">
+                        <p>
+                          <strong>TOOLS</strong><br>
+                          Figma<br> Illustrator / Photoshop<br> Canva<br> HTML / CSS<br><br>
+                          <strong>TEAM TRAITS</strong><br>
+                          Problem solving<br> Open communicator
+                        </p>
                       </div>
                       <div class="tab-panel" data-tab="object">
                         <p>
                           ✏️ <strong>Magic Pencil</strong>: Boosts imagination output by +40%<br>
-                          📁 <strong>Project Vault</strong>: Safely stores completed quests, WIPs, and abandoned genius<br>
-                          💾 <strong>Inspo Cache</strong>: Auto-collects sparkles, screenshots & late-night doodles<br>
-                          🧵 <strong>Thread of Chaos</strong>: Untangles messy ideas into clean concepts (eventually)
+                          📁 <strong>Project Vault</strong>: Stores completed quests & WIPs<br>
+                          💾 <strong>Inspo Cache</strong>: Collects sparkles, screenshots, doodles<br>
+                          🧵 <strong>Thread of Chaos</strong>: Untangles messy ideas into clean ones
                         </p>
-                      </div>                      
+                      </div>
                     </div>
                   </div>
+
                 </div>
               </div>
-
             </div>
           </div>
         </div>
 
-        <!-- Project Card -->
+        <!-- 🗂️ Project Card -->
         <div class="swiper-slide card-nav project-card">
-          <a href="projects.html" class="project-button">CANVALLY PROJECT</a>
+          <a href="projects.html" class="project-button">VIEW CANVALLY PROJECT</a>
         </div>
-        
-        <!-- Contact Card -->
+
+        <!-- 📬 Contact Card -->
         <div class="swiper-slide card-nav contact-card quest-style-card">
           <div class="quest-header">📬 New Quest</div>
           <div class="quest-body">
@@ -152,16 +161,17 @@
             <p class="quest-description">
               Reach out to Isabelle the Designer! She awaits your signal for collaboration or questions. 💌
             </p>
-            <a href="mailto:seoyounglee17@gmail.com" class="quest-button">Accept Quest</a>
+            <a href="#" class="quest-button" id="email-quest-btn">Accept Quest</a>
           </div>
         </div>
+
       </div>
     </div>
 
-
+    <!-- 💡 Flip Hint -->
     <p class="flip-hint" id="flip-hint">Click to flip</p>
 
-    <!-- Swipe Buttons -->
+    <!-- ⬅️➡️ Carousel Navigation -->
     <div class="carousel-nav">
       <button id="prev-btn" class="nav-btn">
         <img src="asset/left-button.png" alt="Previous">
@@ -172,14 +182,9 @@
     </div>
   </main>
 
-  <!-- Swiper JS -->
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
-
-  <audio id="intro-music" src="asset/intro-music.mp3"></audio>
-  <audio id="background-music" src="asset/background-music.mp3" loop></audio>
-  
-
-
+  <audio id="background-music" src="asset/background-music.mp3" loop hidden></audio>
 </body>
 </html>

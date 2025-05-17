@@ -12,6 +12,7 @@ const flipHint = document.getElementById("flip-hint");
 const unlockedText = document.getElementById("unlocked-text");
 const loadingText = document.getElementById("loading-text");
 const timerElement = document.getElementById("timer");
+const emailBtn = document.getElementById("email-quest-btn");
 
 // 📢 Play click sounds on all buttons
 document.addEventListener('DOMContentLoaded', () => {
@@ -57,7 +58,6 @@ if (flipContainer) {
   });
 }
 
-// 🎯 Swiper logic + flip hint show/hide
 const swiper = new Swiper(".mySwiper", {
   effect: "coverflow",
   grabCursor: true,
@@ -81,9 +81,21 @@ const swiper = new Swiper(".mySwiper", {
       const show = !!isMainCard;
       flipHint.style.display = show ? "block" : "none";
       unlockedText.style.display = show ? "block" : "none";
+
+      const prevBtn = document.getElementById("prev-btn");
+      const nextBtn = document.getElementById("next-btn");
+
+      prevBtn.style.opacity = swiper.activeIndex > 0 ? "1" : "0";
+      nextBtn.style.opacity = swiper.activeIndex < swiper.slides.length - 1 ? "1" : "0";
+
+      prevBtn.style.pointerEvents = swiper.activeIndex > 0 ? "auto" : "none";
+      nextBtn.style.pointerEvents = swiper.activeIndex < swiper.slides.length - 1 ? "auto" : "none";
     }
   }
 });
+
+// Run once on load to set correct button visibility
+swiper.emit('slideChangeTransitionEnd');
 
 // ⬅️➡️ Carousel nav buttons
 document.getElementById("prev-btn").addEventListener("click", () => {
@@ -114,7 +126,6 @@ window.addEventListener("DOMContentLoaded", () => {
   } else {
     openingScreen.classList.remove("js-hidden");
     openingScreen.classList.add("visible");
-    introMusic.play();
 
     // 🔁 Loading % counter
     let percent = 0;
@@ -146,14 +157,31 @@ openBtn.addEventListener("click", () => {
   });
 });
 
-//Time for Background UI
+// 🕒 Time for Background UI
 function updateClock() {
   const now = new Date();
   const hours = String(now.getHours()).padStart(2, '0');
   const mins = String(now.getMinutes()).padStart(2, '0');
   document.getElementById("clock-time").textContent = `${hours}:${mins}`;
 }
-
-// Update every 30 seconds to keep it lightweight
 updateClock();
 setInterval(updateClock, 30000);
+
+// 📧 Email Button Function
+if (emailBtn) {
+  emailBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    const email = 'seoyounglee17@gmail.com';
+    const subject = encodeURIComponent('Canvally Portfolio — Accept Quest');
+    const body = encodeURIComponent("Hi Isabelle,\n\nI'd love to accept the quest you've offered!\n\n[Write your message here]");
+
+    const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+    
+    try {
+      window.location.href = mailtoLink;
+    } catch (err) {
+      alert("Oops! Could not open your mail client. You can email manually at: seoyounglee17@gmail.com");
+    }
+  });
+}
