@@ -15,20 +15,26 @@
 </head>
 
 <body>
+  <ul class="stars">
+    <li></li><li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li><li></li>
+  </ul>
+
   <!-- 🕹 Game UI Bar -->
   <div class="game-ui-bar">
     <div class="game-ui-item">
       <img src="asset/coin.png" alt="Coin Icon" class="ui-icon" />
-      <span id="coin-count">× 99</span>
+      <span id="coin-count">× 1</span>
     </div>
     <div class="game-ui-item">
       <img src="asset/score.png" alt="Score Icon" class="ui-icon" />
-      <span id="score">000120</span>
+      <span id="score">000000</span>
     </div>
     <div class="game-ui-item">
       <img src="asset/clock.png" alt="Clock Icon" class="ui-icon" />
       <span id="clock-time">--:--</span>
     </div>
+    <button id="music-toggle">🔊 Music On</button>
   </div>
 
   <!-- 🚪 Opening Screen -->
@@ -153,18 +159,31 @@
         <!-- 📬 Contact Card -->
         <div class="swiper-slide card-nav contact-card quest-style-card">
           <div class="quest-header">📬 New Quest</div>
+
           <div class="quest-body">
             <div class="quest-title-row">
               <h3 class="quest-title">Send a Message</h3>
               <span class="quest-progress">0/1</span>
             </div>
+
             <p class="quest-description">
               Reach out to Isabelle the Designer! She awaits your signal for collaboration or questions. 💌
             </p>
-            <a href="#" class="quest-button" id="email-quest-btn">Accept Quest</a>
+
+            <!-- 📨 Email Options -->
+            <div class="email-actions">
+              <button id="email-quest-btn" class="quest-button">📨 Use Mail App</button>
+              <button id="gmail-btn" class="quest-button alt">📧 Open Gmail</button>
+
+              <div class="copy-block">
+                <input type="text" value="seoyounglee17@gmail.com" id="manual-email" readonly />
+                <button id="copy-email-btn" class="copy-button">📋</button>
+              </div>
+
+              <p id="copy-msg" class="copy-msg js-hidden">✅ Email copied!</p>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
 

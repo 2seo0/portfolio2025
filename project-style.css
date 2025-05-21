@@ -28,7 +28,7 @@ body {
 /* 🔲 Page Layout */
 .page-layout {
   display: flex;
-  justify-content: center; /* centers the combined sidebar + content */
+  justify-content: center;
   align-items: flex-start;
   gap: 2vw;
   max-width: 1000px;
@@ -48,7 +48,7 @@ body {
   padding: 0 2vw;
 }
 
-/* 📑 Sidebar */
+/* 📁 Sidebar */
 .sidebar-nav {
   position: fixed;
   top: 0;
@@ -75,17 +75,17 @@ body {
 }
 
 .sidebar-nav a {
+  color: #aaa;
   text-decoration: none;
-  color: #888;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.9rem;
   transition: color 0.3s ease;
+  font-weight: normal;
 }
 
-.sidebar-nav a:hover {
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
   color: black;
+  font-weight: bold;
 }
-
 
 /* 🖼 Images */
 .img-full {
@@ -103,10 +103,12 @@ body {
   border-radius: 10px;
 }
 
-.poster-img {
-  border: 0px solid #c4c3c3;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 0px;
+.img-small{
+  width: 100%;
+  max-width: 35vw;
+  max-height: 25vw;
+  object-fit: contain;
+  border-radius: 10px;  
 }
 
 /* 🎯 Project Info */
@@ -137,7 +139,7 @@ body {
 .project-info h2 {
   font-size: clamp(1rem, 1vw, 1.2rem);
   margin: 0;
-  font-weight: 500;
+  font-weight: 400;
   color: rgb(177, 177, 177);
 }
 
@@ -145,33 +147,40 @@ body {
   font-size: clamp(0.9rem, 1vw, 1.1rem);
   line-height: 1.6;
   margin: 0.5vw 0 2vw;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 /* 🧵 Other Sections */
-.documentation h2,
-.documentation h3,
-.documentation p {
-  font-size: clamp(0.9rem, 1vw, 1.1rem);
-  margin: 0;
-  color: black;
-  line-height: 1.6;
+section {
+  padding: 0vw 0;
 }
 
-.documentation h2 {
+section h2 {
   font-weight: 700;
-  margin-bottom: 2vw;
+  font-size: 1.2rem;
+  margin-bottom: 1vw;
+  color: black;
 }
 
-.documentation h3 {
+section h3 {
   font-weight: 500;
-  color: rgb(177, 177, 177);
+  font-size: 1.1rem;
+  color: #b0b0b0;
   margin-bottom: 0.5vw;
 }
 
+section p {
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: black;
+  margin: 1vw 0 2vw;
+}
+
 .backstory h2,
-.context-used h2 {
-  margin-top: 8vw;
+.context-used h2,
+.poster h2 {
+  margin-top: 6vw;
 }
 
 .context-used h3 {
@@ -180,22 +189,33 @@ body {
 
 .poster-pair {
   display: flex;
-  gap: 2vw;
   justify-content: center;
   align-items: flex-start;
+  gap: 2vw;
   margin: 2vw 0;
-  flex-wrap: wrap;
-  max-width: 100%; /* Prevent overflow */
-}
-
-.poster-pair img {
-  flex: 1 1 45%;
+  flex-wrap: wrap; /* allow stacking on small screens */
   max-width: 100%;
-  height: auto;
-  border-radius: 10px;
 }
 
-/* 🧼 Hashtag */
+.poster-img {
+  flex: 0 0 auto;
+  max-width: 45%;
+  height: auto;
+  border: 2px solid #888; /* or use black or any color you like */
+  padding: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: white; /* optional: to ensure border stands out */
+  border-radius: 8px; /* optional: soften corners */
+}
+
+
+.poster-pair img:not(.poster-img) {
+  flex: 1 1 auto;
+  max-width: 45%;
+  height: auto;
+}
+
+/* 🪥 Hashtag */
 .hashtag-bubbles {
   display: flex;
   flex-wrap: wrap;
@@ -213,27 +233,24 @@ body {
   font-weight: 300;
   font-family: 'DynaPuff', cursive;
   white-space: nowrap;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .hashtag-bubbles span:hover {
-  background-color: #f0f0f0;
+  background-color: black;
+  color: white;
+  transform: scale(1.05);
   cursor: default;
 }
 
 /* 📱 Responsive Layout */
 @media (max-width: 768px) {
   .sidebar-nav {
-    display: none; /* Fully hides the sidebar */
+    display: none;
   }
 
   .page-layout {
-    margin-left: 0; /* Remove space reserved for sidebar */
-    padding: 1rem;
-  }
-
-  .page-layout {
-    margin-left: 0; /* remove sidebar space */
+    margin-left: 0;
     padding: 1rem;
   }
 
@@ -244,6 +261,7 @@ body {
     padding: 0.6rem 1.2rem;
     z-index: 1000;
   }
+
   .project-info .row {
     display: flex;
     flex-direction: column;
@@ -280,4 +298,8 @@ body {
     font-size: 3.5vw;
     padding: 1vw 3vw;
   }
+}
+
+html {
+  scroll-behavior: smooth;
 }

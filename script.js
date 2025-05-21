@@ -3,6 +3,7 @@ const buttonSound = new Audio('asset/button.mp3');
 const flipSound = new Audio('asset/flip.mp3');
 const bgMusic = new Audio('asset/background-music.mp3');
 bgMusic.loop = true;
+bgMusic.volume = 0.5; // optional: adjust initial volume
 
 // 🔗 Elements
 const openBtn = document.getElementById("open-button");
@@ -11,18 +12,61 @@ const profileScreen = document.getElementById("profile-screen");
 const flipHint = document.getElementById("flip-hint");
 const unlockedText = document.getElementById("unlocked-text");
 const loadingText = document.getElementById("loading-text");
-const timerElement = document.getElementById("timer");
 const emailBtn = document.getElementById("email-quest-btn");
+const coinDisplay = document.getElementById("coin-count");
+const scoreDisplay = document.getElementById("score");
+const musicToggleBtn = document.getElementById("music-toggle");
 
-// 📢 Play click sounds on all buttons
-document.addEventListener('DOMContentLoaded', () => {
-  const allButtons = document.querySelectorAll('button');
-  allButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      buttonSound.cloneNode().play();
+// 🎵 Music control
+let musicStarted = false;
+let isMuted = false;
+
+function tryPlayMusic() {
+  if (!musicStarted) {
+    bgMusic.play().then(() => {
+      musicStarted = true;
+    }).catch(err => {
+      console.warn("Music blocked until user interacts:", err);
     });
-  });
-});
+  }
+}
+
+function toggleMusic() {
+  if (!musicStarted) {
+    tryPlayMusic();
+  } else {
+    isMuted = !isMuted;
+    bgMusic.muted = isMuted;
+    updateMusicIcon();
+  }
+}
+
+function updateMusicIcon() {
+  if (musicToggleBtn) {
+    musicToggleBtn.textContent = isMuted ? "🔇 Music Off" : "🔊 Music On";
+  }
+}
+
+// Attach toggle button if it exists
+if (musicToggleBtn) {
+  musicToggleBtn.addEventListener("click", toggleMusic);
+}
+
+// 📈 Coins
+let coinCount = 1;
+function updateCoins(amount = 1) {
+  coinCount += amount;
+  if (coinDisplay) {
+    coinDisplay.textContent = `× ${coinCount}`;
+  }
+}
+
+// 📈 Score
+let score = 0;
+function updateScore(amount = 10) {
+  score += amount;
+  scoreDisplay.textContent = score.toString().padStart(6, '0');
+}
 
 // 🧠 Tabs functionality
 const tabs = document.querySelectorAll(".tabs button");
@@ -58,6 +102,7 @@ if (flipContainer) {
   });
 }
 
+// 🎠 Swiper setup
 const swiper = new Swiper(".mySwiper", {
   effect: "coverflow",
   grabCursor: true,
@@ -93,8 +138,6 @@ const swiper = new Swiper(".mySwiper", {
     }
   }
 });
-
-// Run once on load to set correct button visibility
 swiper.emit('slideChangeTransitionEnd');
 
 // ⬅️➡️ Carousel nav buttons
@@ -107,7 +150,7 @@ document.getElementById("next-btn").addEventListener("click", () => {
   buttonSound.cloneNode().play();
 });
 
-// 🎨 Project card hover blush
+// 🎨 Project card hover
 const projectButton = document.querySelector('.project-button');
 const projectCard = document.querySelector('.project-card');
 projectButton.addEventListener('mouseenter', () => projectCard.classList.add('blush'));
@@ -122,12 +165,11 @@ window.addEventListener("DOMContentLoaded", () => {
     openingScreen.classList.add("hidden");
     profileScreen.classList.remove("hidden");
     profileScreen.classList.add("visible");
-    bgMusic.play();
   } else {
     openingScreen.classList.remove("js-hidden");
     openingScreen.classList.add("visible");
 
-    // 🔁 Loading % counter
+    // 🔁 Loading bar logic
     let percent = 0;
     const interval = setInterval(() => {
       percent += 1;
@@ -135,29 +177,54 @@ window.addEventListener("DOMContentLoaded", () => {
       if (percent >= 100) clearInterval(interval);
     }, 30);
 
-    // 📬 Show button after bar fills
     setTimeout(() => {
       openBtn.style.display = "block";
     }, 3100);
   }
+
+  // 🕹️ Start passive score timer
+  setInterval(() => {
+    updateScore(15);
+  }, 10000);
+
+  // 🎵 Allow music after any user interaction
+  document.addEventListener("click", tryPlayMusic, { once: true });
 });
 
-// 🧩 Unlock button click
+// 🔓 Unlock button click
 openBtn.addEventListener("click", () => {
   openingScreen.classList.remove("visible");
   openingScreen.classList.add("hidden");
   profileScreen.classList.remove("hidden");
   profileScreen.classList.add("visible");
-
   localStorage.setItem("designerUnlocked", "true");
+  tryPlayMusic();
+});
 
-  // ✅ Safe to play music now (user has interacted)
-  bgMusic.play().catch(err => {
-    console.warn("Music autoplay blocked:", err);
+// 📢 Play click sounds + coins
+document.addEventListener('DOMContentLoaded', () => {
+  const allButtons = document.querySelectorAll('button');
+  allButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      buttonSound.cloneNode().play();
+      updateCoins();
+    });
   });
 });
 
-// 🕒 Time for Background UI
+// 🧩 Global interaction: coins
+document.addEventListener('click', (e) => {
+  const interactiveTag = ["BUTTON", "A"];
+  if (interactiveTag.includes(e.target.tagName)) {
+    updateCoins();
+  }
+
+  if (e.target.closest(".card-flip-container")) {
+    updateCoins();
+  }
+});
+
+// ⏰ Clock UI
 function updateClock() {
   const now = new Date();
   const hours = String(now.getHours()).padStart(2, '0');
@@ -167,21 +234,61 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 30000);
 
-// 📧 Email Button Function
+
+// 📬 Email Quest Buttons + Quest Progress Feedback
+const gmailBtn = document.getElementById("gmail-btn");
+const copyEmailBtn = document.getElementById("copy-email-btn");
+const copyMsg = document.getElementById("copy-msg");
+
+// ✅ Marks quest progress as complete
+function markQuestComplete() {
+  const questProgress = document.querySelector(".quest-progress");
+  if (questProgress) {
+    questProgress.textContent = "1/1";
+    questProgress.style.color = "green";
+  }
+}
+
+// 📨 Mailto fallback
 if (emailBtn) {
   emailBtn.addEventListener('click', (e) => {
     e.preventDefault();
-
     const email = 'seoyounglee17@gmail.com';
     const subject = encodeURIComponent('Canvally Portfolio — Accept Quest');
     const body = encodeURIComponent("Hi Isabelle,\n\nI'd love to accept the quest you've offered!\n\n[Write your message here]");
-
     const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
-    
+
     try {
       window.location.href = mailtoLink;
+      markQuestComplete();
     } catch (err) {
-      alert("Oops! Could not open your mail client. You can email manually at: seoyounglee17@gmail.com");
+      alert("Could not open your mail client. Try Gmail or copy the address below!");
     }
   });
 }
+
+// 📧 Gmail Fallback
+if (gmailBtn) {
+  gmailBtn.addEventListener('click', () => {
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=seoyounglee17@gmail.com&su=Canvally Portfolio — Accept Quest&body=Hi Isabelle,%0A%0AI'd love to accept the quest you've offered!%0A%0A[Write your message here]`;
+    window.open(gmailLink, '_blank');
+    markQuestComplete();
+  });
+}
+
+// 📋 Copy-to-Clipboard
+if (copyEmailBtn) {
+  copyEmailBtn.addEventListener('click', () => {
+    const emailField = document.getElementById("manual-email");
+    emailField.select();
+    emailField.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+
+    // Show copy message
+    copyMsg.classList.remove("js-hidden");
+    setTimeout(() => copyMsg.classList.add("js-hidden"), 2000);
+
+    markQuestComplete();
+  });
+}
+
